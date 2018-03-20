@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Atelier 3TI 2018</string>
+    <string name="load">Load</string>
+    <string name="click_load">Click Load</string>
+</resources>
