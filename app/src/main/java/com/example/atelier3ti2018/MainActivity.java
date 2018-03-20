@@ -14,11 +14,17 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.net.HttpURLConnection;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import Models.Comment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -62,11 +68,27 @@ public class MainActivity extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest request = new StringRequest(
                 Request.Method.POST ,
-                "http://192.168.137.1:8000/Annonce/Store",
+                "http://192.168.137.1:8000/Comment",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        resultTextView.setText(response);
+                        //resultTextView.setText(response);
+                        try {
+                            ArrayList<Comment> comments = new ArrayList<>();
+
+                            JSONArray liste = new JSONArray(response);
+                            for (int i=0;i<liste.length();i++){
+                                JSONObject obj = liste.getJSONObject(i);
+
+                                Comment comment= new Comment();
+                                comment.id=obj.getInt("id");
+                                comment.comment = obj.getString("comment");
+                                comments.add(comment);
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, new Response.ErrorListener() {
             @Override
