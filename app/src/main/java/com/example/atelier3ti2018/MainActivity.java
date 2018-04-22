@@ -13,6 +13,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,12 +28,14 @@ import java.util.Map;
 
 import Models.Comment;
 
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
     }
 
     public void onLoadClick(View view) {
@@ -68,14 +72,18 @@ public class MainActivity extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest request = new StringRequest(
                 Request.Method.POST ,
-                "http://192.168.137.1:8000/Comment",
+                "http://192.168.43.243:8000/Comment",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         //resultTextView.setText(response);
                         try {
-                            ArrayList<Comment> comments = new ArrayList<>();
 
+                            Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+                            Comment[] results =  gson.fromJson(response,Comment[].class);
+                            resultTextView.setText(String.valueOf(results.length));
+
+                            /*ArrayList<Comment> comments = new ArrayList<>();
                             JSONArray liste = new JSONArray(response);
                             for (int i=0;i<liste.length();i++){
                                 JSONObject obj = liste.getJSONObject(i);
@@ -84,9 +92,9 @@ public class MainActivity extends AppCompatActivity {
                                 comment.id=obj.getInt("id");
                                 comment.comment = obj.getString("comment");
                                 comments.add(comment);
-                            }
+                            }*/
 
-                        } catch (JSONException e) {
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
@@ -104,9 +112,17 @@ public class MainActivity extends AppCompatActivity {
                 params.put("password", "pass1");
                 return params;
             }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("token", "user1");
+                return params;
+            }
         };
         queue.add(request);
 
 
     }
+
 }
