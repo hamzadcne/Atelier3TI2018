@@ -6,9 +6,13 @@
     tools:context="com.example.atelier3ti2018.ImageActivity"
     android:orientation="vertical">
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" android:text="Load Image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:text="Load From Gallery"
         android:onClick="onLoadImageClick"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:text="Take Picture"
+        android:onClick="onTakePictureClick"/>
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="200dp"

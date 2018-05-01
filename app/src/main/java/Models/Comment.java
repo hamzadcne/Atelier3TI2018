@@ -9,6 +9,7 @@ import java.util.Date;
 public class Comment {
     public int id;
     public String comment;
+    public String photo;
     public Date created_at;
     public Date updated_at;
 

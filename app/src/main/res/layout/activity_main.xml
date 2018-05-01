@@ -26,4 +26,11 @@
         tools:layout_editor_absoluteX="110dp"
         tools:layout_editor_absoluteY="111dp" />
 
+    <Button
+        android:id="@+id/img_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Get Image"
+        android:onClick="startImageActivity"/>
+
 </LinearLayout>
