@@ -3,6 +3,7 @@ package com.example.atelier3ti2018;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -57,6 +58,7 @@ public class LocationActivity extends AppCompatActivity {
 
                 TextView lonTxtView = (TextView) findViewById(R.id.longitude_value);
                 lonTxtView.setText(String.valueOf(lon));
+
             }
 
             @Override
@@ -91,6 +93,7 @@ public class LocationActivity extends AppCompatActivity {
         manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationChangedListener);
     }
+
     public void onShareClick(View view) {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -104,6 +107,9 @@ public class LocationActivity extends AppCompatActivity {
             return;
         }
         Location lastKnownLocation = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        if (lastKnownLocation != null) {
+            // Envoyer la requête au serveur
+        }
 
         if (locationChangedListener != null)
             manager.removeUpdates(locationChangedListener);

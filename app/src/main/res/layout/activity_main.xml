@@ -32,5 +32,11 @@
         android:layout_height="wrap_content"
         android:text="Get Image"
         android:onClick="startImageActivity"/>
+    <Button
+        android:id="@+id/gps_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Location Manager"
+        android:onClick="startLocationActivity"/>
 
 </LinearLayout>
